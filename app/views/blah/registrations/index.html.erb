@@ -1,0 +1,34 @@
+<h1>Listing Users</h1>
+
+<table>
+  <tr>
+    <th>Email</th>
+	<th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @employees.each do |employee| %>
+  <tr>
+    <td><%= employee.name %></td>
+    <td><%= employee.title %></td>
+	<td><%= link_to(employee.rank.name, employee.rank, :target => '_blank') %></td>
+	<td><%= employee.email %></td>
+	<td>
+	  <% employee.skills.each do |skill| %>
+	    |<b><%= link_to(skill.name, skill) %></b>|
+	  <% end %>
+	  <%= "No Skills" if employee.skills.size < 1 %>
+	</td>
+    <td><%= link_to 'Show', employee %></td>
+    <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
+    <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Home', root_path %> |
+<%= link_to 'New Employee', new_employee_path %>

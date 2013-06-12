@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @equipment.name %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <span style="color:<%=@equipment.status.color%>"><b><%= @equipment.status.name %></b></span>
+</p>
+
+<p>
+  <b>Manager:</b>
+  <%= link_to(@equipment.manager.name, @equipment.manager) %>
+</p>
+
+<p>
+	<b>Handlers:</b>
+	<% @equipment.handlers.each do |handler| %>
+		<%= link_to(handler.name, handler) %>|
+	<% end %>
+	<% if @equipment.handlers.size < 1 %>
+		<em>NO HANDLERS FOR THIS EQUIPMENT</em>
+	<% end %>
+</p>
+
+
+<%= link_to 'Edit', edit_equipment_path(@equipment) %> |
+<%= link_to 'Back', equipment_index_path %>

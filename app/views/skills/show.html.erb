@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @skill.name %>
+</p>
+
+<p>
+  <b>All Employees With This Skill:</b>
+  <% @skill.employees.each do |employee| %>
+	<li><b><%= link_to(employee.name, employee) %></b></li>
+  <% end%>
+</p>
+
+<%= link_to 'Edit', edit_skill_path(@skill) %> |
+<%= link_to 'Back', skills_path %>

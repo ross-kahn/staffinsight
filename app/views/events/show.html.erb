@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @event.name %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%= @event.location %>
+</p>
+
+<p>
+  <b>Time:</b>
+  <%= @event.time %>
+</p>
+
+<p>
+  <b>Required Skills:</b>
+  <% @event.skills.each do |skill| %>
+	<span style="color:<%=skill.status_color(@event)%>">|<%= link_to(skill.name, skill, :target => '_blank') %>|</span>
+  <% end %>
+  <% if @event.skills.size < 1%>
+	<em> NO REQUIRED SKILLS </em>
+  <% end %>
+</p>
+
+<p>
+  <b>Required Equipment:</b>
+  <% if @event.equipment.size < 1 %>
+	<em>NO REQUIRED EQUIPMENT</em>
+  <% else %>
+	  <table>
+		<tr>
+			<th>Name</th>
+			<th>Status</th>
+			<th>Manager</th>
+		</tr>
+		 <% @event.equipment.each do |eq| %>
+			<tr>
+				<td><%= link_to(eq.name, eq, :target => '_blank') %></td>
+				<td style="color:<%=eq.status.color%>"><b><%= eq.status.name %></b></td>
+				<td><%= link_to(eq.manager.name, eq.manager, :target => '_blank') %></td>
+			</tr>
+		 <%end%>
+	  </table>
+  <% end %>
+</p>
+
+<p>
+	<b>Potential Employees:</b>
+	<% if @event.potentials.size < 1 %>
+		<em>NO POTENTIAL EMPLOYEES COULD BE CALCULATED!</em>
+	<% else %>
+	<table cellspacing=10>
+		<tr>
+			<th>Name</th>
+			<th>Position</th>
+			<th>Relevant Skills</th>
+			<th>Relevent Equipment Handling</th>
+		</tr>
+		<% @event.potentials.each do |pot| %>
+			<tr>
+				<td><%= link_to(pot.name, pot, :target=> '_blank' ) %></td>
+				<td><%= pot.title %></td>
+				<td>
+					<% (@event.skills & pot.skills).each do |skill| %>
+						|<%= link_to(skill.name, skill, :target => '_blank') %>|
+					<% end %>
+					<% if (@event.skills & pot.skills).size < 1 %>
+						<b>N/A</b>
+					<% end %>
+				</td>
+				<td>
+					<% (@event.equipment & pot.equipment).each do |eq| %>
+						|<%= link_to(eq.name, eq, :target => '_blank') %>|
+					<% end %>
+					<% if (@event.equipment & pot.equipment).size < 1 %>
+						<b>N/A</b>
+					<% end %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+	<% end %>
+<p>
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

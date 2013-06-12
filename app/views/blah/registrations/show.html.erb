@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @employee.name %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @employee.title %>
+</p>
+
+<p>
+	<b>Status:</b>
+	<%= @employee.rank.name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @employee.email %>
+</p>
+
+<p>
+  <b>Skills:</b>
+  <% @employee.skills.each do |skill| %>
+    |<%= link_to(skill.name, skill) %>|
+  <% end %>
+  
+  <% if @employee.skills.size < 1 %>
+    <em>No Skills</em>
+  <% end %>
+</p>
+
+<p>
+	<b>Handles:</b>
+	<% @employee.equipment.each do |equipment|%>
+		|<%= link_to(equipment.name, equipment) %>|
+	<% end %>
+</p>
+
+
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>

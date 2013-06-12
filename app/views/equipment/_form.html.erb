@@ -1,0 +1,44 @@
+<%= form_for(@equipment) do |f| %>
+  <% if @equipment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@equipment.errors.count, "error") %> prohibited this equipment from being saved:</h2>
+
+      <ul>
+      <% @equipment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <h3><%= f.label :name %>:</h3>
+    <%= f.text_field :name %>
+  </div>
+  
+  <div class="field">
+	<h3><%= f.label 'Status' %>:</h3>
+	<% @statuses.each do |s|%>
+		<% checked = !@equipment.new_record? && s.id == @equipment.status.id %>
+		<%= radio_button_tag 'status', s.id, checked %>
+		<%= s.name %><br />
+	<% end %>
+  </div>
+  
+  <div class="field">
+    <h3><%= f.label 'Manager' %>:</h3>
+	<%= collection_select(:equipment, :employee_id, @employees, :id, :name, {:prompt => true}) %><br />
+  </div>
+  
+  <div class="field">
+	<h3><%= f.label 'Handlers' %>:</h3>
+	<% @employees.each do |e|%>
+		<%= check_box_tag 'handlers[]', e.id, @eq_handlers.include?(e.id) %>
+		<%= e.name %><br /> 
+	<% end %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
