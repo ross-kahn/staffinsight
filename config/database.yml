@@ -8,7 +8,7 @@ development:
   database: mgmtdev
   pool: 5
   timeout: 5000
-  username: Ross
+  username: ROSS
   password: secret
 
 # Warning: The database defined as "test" will be erased and
