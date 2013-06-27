@@ -23,6 +23,8 @@ MgmtPrototype::Application.routes.draw do
 
   get "home/index"
   
+  get "/employees/new/:id", to: "employees#new", as: "new_employee"
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -61,6 +61,12 @@ class EmployeesController < ApplicationController
   # GET /employees/new.json
   def new
     @employee = Employee.new
+	
+	if params[:id]
+	  @user = User.find( params[:id] )
+	else
+	  redirect_to root_path
+	end
 
     respond_to do |format|
       format.html # new.html.erb

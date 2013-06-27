@@ -8,7 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new
     resource = build_resource({})
-	@default_role = Role.where(:name=>"ReadOnly").first
+	@default_role = Role.last
 	respond_with resource
   end
   
@@ -27,7 +27,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
   
 	def after_sign_up_path_for(resource)
-		new_employee_path
+		new_employee_path(resource.id)
 	end
   
 end 
