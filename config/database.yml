@@ -5,7 +5,7 @@
 #   gem 'sqlite3'
 development:
   adapter: postgresql
-  database: mgmtdev
+  database: mgmtmaster
   pool: 5
   timeout: 5000
   username: ROSS
@@ -19,7 +19,7 @@ test:
   database: mgmttest
   pool: 5
   timeout: 5000
-  username: Ross
+  username: ROSS
   password: secret
 
 production:
@@ -27,5 +27,5 @@ production:
   database: mgmtproduction
   pool: 5
   timeout: 5000
-  username: Ross
+  username: ROSS
   password: secret
