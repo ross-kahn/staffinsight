@@ -14,10 +14,10 @@
 
 <% @employees.each do |employee| %>
   <tr>
-    <td><%= employee.name %></td>
-    <td><%= employee.title %></td>
-	<td><%= link_to(employee.rank.name, employee.rank, :target => '_blank') %></td>
-	<td><%= employee.email %></td>
+    <td><%= employee.name || "N/A" %></td>
+    <td><%= employee.title || "N/A" %></td>
+	<td><%= link_to(employee.rank.name, employee.rank, :target => '_blank') unless nil == employee.rank %></td>
+	<td><%= employee.email || "N/A" %></td>
 	<td>
 	  <% employee.skills.each do |skill| %>
 	    |<b><%= link_to(skill.name, skill) %></b>|
@@ -34,4 +34,4 @@
 <br />
 
 <%= link_to 'Home', root_path %> |
-<%= link_to 'New Employee', new_employee_path %>
+<%= link_to 'New Employee', new_user_registration_path %>
