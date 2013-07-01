@@ -1,0 +1,38 @@
+<h1>All Users</h1>
+ 
+<table id="users">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Role</th>
+			<th>Login Count</th>
+			<th>Last Sign In</th>
+			<th>Role</th>
+			<th>Created At</th>
+			<th>Last Edited</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @users.each do |user| %>
+		<tr>
+			<th><%= user.name %></th>
+			<th><%= user.email %></th>
+			<th><%= user.role %></th>
+			<th><%= user.sign_in_count %></th>
+			<th><%if user.last_sign_in_at.blank? %>Never logged in<% else %><%= time_ago_in_words(user.last_sign_in_at.to_datetime)+' ago' %><% end %></th>
+			<th><%= user.role %></th>
+			<th><%= user.created_at.to_s(:datetime).downcase %></th>
+			<th><%= user.updated_at.to_s(:datetime).downcase %></th>
+			<th><%= link_to "Edit", edit_user_path(user) %></th>
+			<th><%= link_to "Delete", user, :method => :delete, :confirm => "Are you sure?" %></th>
+		</tr>
+		<% end %>
+	</tbody>
+ 
+ 
+</table>
+ 
+<p><%= link_to "New User", new_user_path %></p>
