@@ -3,7 +3,7 @@
 <table>
   <tr>
     <th>Name</th>
-	<th>Employees</th>
+	<th>People With Skill</th>
     <th></th>
     <th></th>
     <th></th>
@@ -13,8 +13,8 @@
   <tr>
     <td><%= skill.name %></td>
 	<td>
-	  <% skill.employees.each do |employee| %>
-	    |<b><%= link_to(employee.name, employee) %></b>|
+	  <% skill.profiles.each do |profile| %>
+	    |<b><%= link_to(profile.name, profile) %></b>|
 	  <% end %>
 	</td>
     <td><%= link_to 'Show', skill %></td>

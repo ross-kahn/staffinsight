@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   
 	  def after_sign_in_path_for(resource)
 			# Check to see if the resource's associated profile is 'nil'
-			if( resource.employee )
+			if( resource.profile.nil? )
 				
 				# If the user has a profile associated with it, then proceed normally to the home page
 				root_path

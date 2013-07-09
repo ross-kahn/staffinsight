@@ -6,7 +6,8 @@ MgmtPrototype::Application.routes.draw do
   
   resources :ranks
 
-
+  resources :profiles
+	
   resources :events
 
 
@@ -24,7 +25,7 @@ MgmtPrototype::Application.routes.draw do
 
   get "home/index"
   
-  get "/employees/new/:id", to: "employees#new", as: "new_employee"
+  get "/profiles/new/:id", to: "profiles#new", as: "new_profile"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -5,6 +5,7 @@ class Skill < ActiveRecord::Base
   validates_uniqueness_of :name
   
   has_and_belongs_to_many :employees
+	has_and_belongs_to_many :profiles
   has_and_belongs_to_many :events
   
   def status_color(event)

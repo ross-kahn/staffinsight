@@ -5,22 +5,22 @@ class Event < ActiveRecord::Base
   
   has_and_belongs_to_many :skills  
   has_and_belongs_to_many :equipment
-  has_and_belongs_to_many :responders, :class_name => "Employee"
+  has_and_belongs_to_many :responders, :class_name => "Profile"
 
 
   def potentials
 	
 	skill_pot = []
 	skills.each do |skill|
-		skill.employees.each do |employee|
-			skill_pot << employee
+		skill.employees.each do |profile|
+			skill_pot << profile
 		end
 	end
 	
 	eq_pot = []
 	equipment.each do |equipment|
-		equipment.handlers.each do |employee|
-			eq_pot << employee
+		equipment.handlers.each do |profile|
+			eq_pot << profile
 		end
 	end
 	

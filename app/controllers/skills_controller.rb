@@ -1,29 +1,31 @@
 class SkillsController < ApplicationController
 
   before_filter :get_skills, :only => [:index, :new, :create, :update]
-  before_filter :get_employees
+  before_filter :get_profiles
+	#before_filter :get_employees
   before_filter :skilled
-    after_filter :build_employees, :only => [:create, :update]
+  #after_filter :build_employees, :only => [:create, :update]
+	after_filter :build_profiles, :only => [:create, :update]
 	
   def get_skills
-	@skills = Skill.all
+		@skills = Skill.all
   end
   
-  def get_employees
-	@employees = Employee.all
+  def get_profiles
+		@profiles = Profile.all
   end
   
   def skilled
-	@skilled = []
+		@skilled = []
   end
 
   def build_employees
-	@skill.employees = []
-	if params.has_key?(:skilled_emp)
-		params[:skilled_emp].each do |emp| 
-			@skill.employees << Employee.find(emp)
+		@skill.profiles = []
+		if params.has_key?(:skilled_prof)
+			params[:skilled_prof].each do |prof| 
+				@skill.profiles << Profile.find(prof)
+			end
 		end
-	end
   end
   
   # GET /skills
@@ -62,9 +64,9 @@ class SkillsController < ApplicationController
   def edit
     @skill = Skill.find(params[:id])
 	
-	@skill.employees.each do |emp|
-		@skilled << emp.id
-	end
+		@skill.profiles.each do |prof|
+			@skilled << prof.id
+		end
   end
 
   # POST /skills

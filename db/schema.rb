@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709190603) do
+ActiveRecord::Schema.define(:version => 20130709204711) do
 
   create_table "employees", :force => true do |t|
     t.string   "name"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20130709190603) do
     t.datetime "updated_at",  :null => false
     t.integer  "status_id"
     t.integer  "employee_id"
+    t.integer  "profile_id"
   end
 
   create_table "equipment_events", :id => false, :force => true do |t|
@@ -57,6 +58,11 @@ ActiveRecord::Schema.define(:version => 20130709190603) do
 
   add_index "equipment_events", ["equipment_id", "event_id"], :name => "index_equipment_events_on_equipment_id_and_event_id"
 
+  create_table "equipment_profiles", :id => false, :force => true do |t|
+    t.integer "equipment_id", :null => false
+    t.integer "profile_id",   :null => false
+  end
+
   create_table "events", :force => true do |t|
     t.string   "name"
     t.string   "location"
@@ -64,6 +70,13 @@ ActiveRecord::Schema.define(:version => 20130709190603) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "events_profiles", :id => false, :force => true do |t|
+    t.integer "event_id",   :null => false
+    t.integer "profile_id", :null => false
+  end
+
+  add_index "events_profiles", ["event_id", "profile_id"], :name => "index_events_profiles_on_event_id_and_profile_id"
 
   create_table "events_skills", :id => false, :force => true do |t|
     t.integer "skill_id", :null => false
@@ -77,6 +90,21 @@ ActiveRecord::Schema.define(:version => 20130709190603) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "profiles", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "title"
+    t.integer  "rank_id"
+    t.integer  "user_id"
+  end
+
+  create_table "profiles_skills", :id => false, :force => true do |t|
+    t.integer "profile_id", :null => false
+    t.integer "skill_id",   :null => false
+  end
+
+  add_index "profiles_skills", ["profile_id", "skill_id"], :name => "index_profiles_skills_on_profile_id_and_skill_id"
 
   create_table "ranks", :force => true do |t|
     t.string   "name"
@@ -120,6 +148,7 @@ ActiveRecord::Schema.define(:version => 20130709190603) do
     t.string   "name"
     t.string   "role"
     t.integer  "employee_id"
+    t.integer  "profile_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -9,7 +9,9 @@
 <body>
 <% if user_signed_in? %>
   <p>Hello <%= current_user.name %>
-  <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></p>
+  <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %> |
+  <%= link_to 'Home', root_path %> |
+  <%= link_to 'Profiles', profiles_path %></p>
 <% end %>
 
 <p class="notice">

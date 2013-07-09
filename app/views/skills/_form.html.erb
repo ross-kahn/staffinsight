@@ -17,10 +17,10 @@
   </div>
   
   <div class="field">
-	<h3><%= f.label 'Employees With This Skill' %>:</h3>
-	<% @employees.each do |e|%>
-		<%= check_box_tag 'skilled_emp[]', e.id, @skilled.include?(e.id) %>
-		<%= e.name %><br /> 
+	<h3><%= f.label 'People With This Skill' %>:</h3>
+	<% @profiles.each do |p|%>
+		<%= check_box_tag 'skilled_prof[]', p.id, @skilled.include?(p.id) %>
+		<%= p.name %><br /> 
 	<% end %>
   </div>
   

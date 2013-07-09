@@ -6,9 +6,9 @@
 </p>
 
 <p>
-  <b>All Employees With This Skill:</b>
-  <% @skill.employees.each do |employee| %>
-	<li><b><%= link_to(employee.name, employee) %></b></li>
+  <b>All People With This Skill:</b>
+  <% @skill.profiles.each do |profile| %>
+	<li><b><%= link_to(profile.name, profile) %></b></li>
   <% end%>
 </p>
 
