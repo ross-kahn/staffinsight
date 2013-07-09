@@ -16,7 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
- 
+	
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @user }
@@ -28,6 +28,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def new
     @user = User.new
  
+	#redirect_to new_user_path
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @user }
@@ -43,18 +44,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /users.json
   def create
     @user = User.new(params[:user])
- 
-      #respond_to do |format|
-      #if @user.save
-      #  format.html { redirect_to @user, :notice => 'User was successfully created.' }
-      #  format.json { render :json => @user, :status => :created, :location => @user }
-      #else
-      #  format.html { render :action => "new" }
-      #  format.json { render :json => @user.errors, :status => :unprocessable_entity }
-      #end
+	
     if(@user.save)
-	  sign_in(resource_name, resource)
-	  respond_with resource, :location => after_sign_up_path_for(resource)
+	  respond_with @user, :location => after_sign_up_path_for(@user)
+	  
+	  #if user_signed_in?
+	    
+	  #else
+	   # sign_in(resource_name, resource)
+		#respond_with resource, :location => new_employee_path(resource)
+	  #end
+	  
     else
       render :action => "new"
     end
@@ -87,4 +87,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       format.json { head :ok }
     end
   end
+  
+  protected
+  
+    def after_sign_up_path_for(resource)
+		new_employee_path(resource)
+	end
 end

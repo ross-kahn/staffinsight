@@ -87,12 +87,15 @@ class EmployeesController < ApplicationController
   # POST /employees.json
   def create
     @employee = Employee.new(params[:employee])
-	@employee.rank_id = params[:rank]
+	  @employee.rank_id = params[:rank]
 	
+		# After cancan is implemented:
+		# If can create profiles, go to all profiles page
+		# If not, go to home
     respond_to do |format|
       if @employee.save
-        format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
-        format.json { render json: @employee, status: :created, location: @employee }
+        format.html { redirect_to employees_path, notice: 'Employee was successfully created.' }
+        format.json { render json: employees_path, status: :created, location: employees_path }
       else
         format.html { render action: "new" }
         format.json { render json: @employee.errors, status: :unprocessable_entity }
