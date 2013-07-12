@@ -2,9 +2,7 @@ class SkillsController < ApplicationController
 
   before_filter :get_skills, :only => [:index, :new, :create, :update]
   before_filter :get_profiles
-	#before_filter :get_employees
   before_filter :skilled
-  #after_filter :build_employees, :only => [:create, :update]
 	after_filter :build_profiles, :only => [:create, :update]
 	
   def get_skills
@@ -19,7 +17,7 @@ class SkillsController < ApplicationController
 		@skilled = []
   end
 
-  def build_employees
+  def build_profiles
 		@skill.profiles = []
 		if params.has_key?(:skilled_prof)
 			params[:skilled_prof].each do |prof| 

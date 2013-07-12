@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :role, :profile
   # attr_accessible :title, :body
   
-	belongs_to :employee
 	belongs_to :profile, inverse_of: :user, dependent: :destroy
 	
   validates_presence_of :name

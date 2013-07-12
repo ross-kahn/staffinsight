@@ -10,17 +10,17 @@ class Event < ActiveRecord::Base
 
   def potentials
 	
-	skill_pot = []
-	skills.each do |skill|
-		skill.employees.each do |profile|
-			skill_pot << profile
+		skill_pot = []
+		skills.each do |skill|
+			skill.profiles.each do |profile|
+				skill_pot << profile
+			end
 		end
-	end
 	
-	eq_pot = []
-	equipment.each do |equipment|
-		equipment.handlers.each do |profile|
-			eq_pot << profile
+		eq_pot = []
+		equipment.each do |equipment|
+			equipment.handlers.each do |profile|
+				eq_pot << profile
 		end
 	end
 	
@@ -33,16 +33,16 @@ class Event < ActiveRecord::Base
   #				Status 'Broken' if there is at least one 'Broken' equipment
   def equipment_status
 	
-	stat = Status.where(:name => "Working").first
-	
-	equipment.each do |equipment|
-		if( equipment.status.name == "Broken")
-			return equipment.status
-		elsif (equipment.status.name == "Needs Attention")
-			stat = equipment.status
+		stat = Status.where(:name => "Working").first
+		
+		equipment.each do |equipment|
+			if( equipment.status.name == "Broken")
+				return equipment.status
+			elsif (equipment.status.name == "Needs Attention")
+				stat = equipment.status
+			end
 		end
-	end
-	return stat
+		return stat
   end
   
 end

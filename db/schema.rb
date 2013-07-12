@@ -11,43 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130709204711) do
-
-  create_table "employees", :force => true do |t|
-    t.string   "name"
-    t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "email"
-    t.integer  "rank_id"
-    t.integer  "user_id"
-  end
-
-  create_table "employees_equipment", :id => false, :force => true do |t|
-    t.integer "employee_id",  :null => false
-    t.integer "equipment_id", :null => false
-  end
-
-  create_table "employees_events", :id => false, :force => true do |t|
-    t.integer "employee_id", :null => false
-    t.integer "event_id",    :null => false
-  end
-
-  add_index "employees_events", ["employee_id", "event_id"], :name => "index_employees_events_on_employee_id_and_event_id"
-
-  create_table "employees_skills", :id => false, :force => true do |t|
-    t.integer "employee_id", :null => false
-    t.integer "skill_id",    :null => false
-  end
-
-  add_index "employees_skills", ["employee_id", "skill_id"], :name => "index_employees_skills_on_employee_id_and_skill_id"
+ActiveRecord::Schema.define(:version => 20130712171559) do
 
   create_table "equipment", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "status_id"
-    t.integer  "employee_id"
     t.integer  "profile_id"
   end
 
@@ -147,7 +117,6 @@ ActiveRecord::Schema.define(:version => 20130709204711) do
     t.datetime "updated_at",                             :null => false
     t.string   "name"
     t.string   "role"
-    t.integer  "employee_id"
     t.integer  "profile_id"
   end
 

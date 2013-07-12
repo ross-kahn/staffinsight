@@ -6,16 +6,16 @@ class Status < ActiveRecord::Base
   has_many :equipment #, inverse_of => :equipment
   
   def color
-	if name == "Broken"
-		color = "red"
-	elsif name == "Needs Attention"
-		color = "orange"
-	elsif name == "Working"
-		color = "green"
-	else
-		color = ""
-	end
-	return color
+		if name == "Broken"
+			color = "red"
+		elsif name == "Needs Attention"
+			color = "orange"
+		elsif name == "Working"
+			color = "green"
+		else
+			color = ""
+		end
+		return color
   end
 
 end
