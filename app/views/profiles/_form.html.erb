@@ -10,12 +10,56 @@
       </ul>
     </div>
   <% end %>
+  
+  <div style="margin:0;padding:0">
+    <input name="user" type="hidden" value=<%= @user.id %> />
+  </div>
 
   <% title_msg = "" %>
   <% if @profile.title %>
-    <% title_msg = "," + @profile.title%>
+    <% title_msg = ", " + @profile.title%>
   <% end %>
-  <h1>Profile for <%= @user.name + title_msg %></h1>
+  <h1><%= @user.name + title_msg %></h1>
+  <h3>Email: <%= @user.email %></h1><br />
+  
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  
+  <div class="field">
+	<%= f.label 'Rank' %>: (<%= link_to("New Status", new_rank_path, :target =>'_blank') %>)<br />
+
+	<% @ranks.each do |r|%>
+		<% if @profile.new_record? %>
+			<% checked = (r.id == @default_rank.id) %>
+		<% else %>
+			<% checked = (r.id == @profile.rank.id) %>
+		<% end %>
+		<%= radio_button_tag 'rank', r.id, checked %>
+		<%= r.name %><br />
+	<% end %>
+
+  </div>
+  
+  <div class="field">
+	<%= f.label 'Skills' %>
+	<%= link_to "(New Skill)", new_skill_path %><br />
+	<% @skills.each do |s|%>
+		<%= check_box_tag 'skillset[]', s.id, @prof_skills.include?(s.id) %>
+		<%= s.name %><br /> 
+	<% end %>
+  </div>
+  
+  <div class="field">
+	<%= f.label 'Handles Equipment:' %>
+	<%= link_to "(New Equipment)", new_equipment_path %><br />
+	<% @equipment.each do |eq| %>
+		<%= check_box_tag 'equipmentset[]', eq.id, @prof_eq.include?(eq.id) %>
+		<%= eq.name %><br /> 
+	<% end %>
+  </div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

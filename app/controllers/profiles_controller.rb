@@ -1,4 +1,48 @@
 class ProfilesController < ApplicationController
+	
+	before_filter :get_user, :except=>[:index]
+	before_filter :get_ranks, :only=> [:new, :edit]
+	before_filter :get_equipment, :only => [:new, :edit]
+	before_filter :get_skills, :only=> [:new, :edit]
+	before_filter :default_rank, :only=> [:new, :edit]
+	after_filter :build_profile, :only => [:create, :update]
+	
+	
+	def get_user
+		@user = current_user
+	end
+	
+	def get_skills
+		@skills = Skill.all
+		@prof_skills = []
+	end
+	
+	def get_equipment
+		@equipment = Equipment.all
+		@prof_eq = []
+	end
+	
+	def get_ranks
+		@ranks = Rank.all
+	end	
+	
+	def default_rank
+		@default_rank = Rank.default()
+	end
+	
+	def build_profile
+		if params.has_key?(:skillset)
+			params[:skillset].each do |skill| 
+				@profile.skills << Skill.find(skill)
+			end
+		end
+		if params.has_key?(:equipmentset)
+			params[:equipmentset].each do |eq|
+				@profile.equipment << Equipment.find(eq)
+			end
+		end
+	end	
+	
   # GET /profiles
   # GET /profiles.json
   def index
@@ -25,7 +69,8 @@ class ProfilesController < ApplicationController
   # GET /profiles/new.json
   def new
     @profile = Profile.new
-		@user = User.find(params[:id])
+		@user = User.find(params[:id]) #TODO: add graceful failure?
+		@profile.user = @user
 		
     respond_to do |format|
       format.html # new.html.erb
@@ -38,6 +83,14 @@ class ProfilesController < ApplicationController
     @profile = Profile.find(params[:id])
 		@user = @profile.user
 		
+		@profile.skills.each do |skill|
+			@prof_skills << skill.id
+		end	
+		
+		@profile.equipment.each do |eq|
+			@prof_eq << eq.id
+		end	
+		
 		respond_to do |format|
       format.html # edit.html.erb
       format.json { render json: @profile }
@@ -48,7 +101,10 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     @profile = Profile.new(params[:profile])
-
+		@profile.rank_id = params[:rank]
+		@profile.user = User.find(params[:user])
+		@profile.user.update_attributes(:profile => @profile)
+		
     respond_to do |format|
       if @profile.save
         format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
@@ -64,6 +120,8 @@ class ProfilesController < ApplicationController
   # PUT /profiles/1.json
   def update
     @profile = Profile.find(params[:id])
+		@profile.skills = [] # prepare for build_profile
+		@profile.rank_id = params[:rank]
 
     respond_to do |format|
       if @profile.update_attributes(params[:profile])

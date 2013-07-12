@@ -13,27 +13,27 @@ class EventsController < ApplicationController
   end
   
   def add_joins
-	@event.equipment = []
-	if params.has_key?(:required_equipment)
-		params[:required_equipment].each do |eq| 
-			@event.equipment << Equipment.find(eq)
+		@event.equipment = []
+		if params.has_key?(:required_equipment)
+			params[:required_equipment].each do |eq| 
+				@event.equipment << Equipment.find(eq)
+			end
 		end
-	end
 	
-	@event.skills = []
-	if params.has_key?(:required_skills)
-		params[:required_skills].each do |sk| 
-			@event.skills << Skill.find(sk)
+		@event.skills = []
+		if params.has_key?(:required_skills)
+			params[:required_skills].each do |sk| 
+				@event.skills << Skill.find(sk)
+			end
 		end
-	end
   end
   
   def req_skills
-	@req_skills = []
+		@req_skills = []
   end
   
   def req_equipment
-	@req_equipment = []
+		@req_equipment = []
   end
 
   # GET /events
@@ -73,13 +73,13 @@ class EventsController < ApplicationController
   def edit
     @event = Event.find(params[:id])
 	
-	@event.skills.each do |skill|
-		@req_skills << skill.id
-	end
-	
-	@event.equipment.each do |equipment|
-		@req_equipment << equipment.id
-	end
+		@event.skills.each do |skill|
+			@req_skills << skill.id
+		end
+		
+		@event.equipment.each do |equipment|
+			@req_equipment << equipment.id
+		end
 
   end
 

@@ -1,15 +1,29 @@
-<h1>Listing profiles</h1>
+<h1>Listing Staff</h1>
 
 <table>
   <tr>
     <th>Name</th>
+    <th>Title</th>
+	<th>Status</th>
+	<th>Email</th>
+	<th>Skills</th>
+    <th></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @profiles.each do |profile| %>
   <tr>
-	<td><%= profile.name %></td>
+    <td><%= profile.name || "N/A" %></td>
+    <td><%= profile.title || "N/A" %></td>
+	<td><%= link_to(profile.rank.name, profile.rank, :target => '_blank') unless nil == profile.rank %></td>
+	<td><%= profile.email || "N/A" %></td>
+	<td>
+	  <% profile.skills.each do |skill| %>
+	    |<b><%= link_to(skill.name, skill) %></b>|
+	  <% end %>
+	  <%= "No Skills" if profile.skills.size < 1 %>
+	</td>
     <td><%= link_to 'Show', profile %></td>
     <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
     <td><%= link_to 'Destroy', profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -18,5 +32,3 @@
 </table>
 
 <br />
-
-<%= link_to 'New Profile', new_profile_path %>

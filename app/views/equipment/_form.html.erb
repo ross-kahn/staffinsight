@@ -27,14 +27,14 @@
   
   <div class="field">
     <h3><%= f.label 'Manager' %>:</h3>
-	<%= collection_select(:equipment, :employee_id, @employees, :id, :name, {:prompt => true}) %><br />
+	<%= collection_select(:equipment, :profile_id, @profiles, :id, :name, {:prompt => true}) %><br />
   </div>
   
   <div class="field">
 	<h3><%= f.label 'Handlers' %>:</h3>
-	<% @employees.each do |e|%>
-		<%= check_box_tag 'handlers[]', e.id, @eq_handlers.include?(e.id) %>
-		<%= e.name %><br /> 
+	<% @profiles.each do |p|%>
+		<%= check_box_tag 'handlers[]', p.id, @eq_handlers.include?(p.id) %>
+		<%= p.name %><br /> 
 	<% end %>
   </div>
   

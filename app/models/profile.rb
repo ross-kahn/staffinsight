@@ -13,7 +13,11 @@ class Profile < ActiveRecord::Base
 						inverse_of: :profile, dependent: :destroy	# The authentication model associated with each employee model
 	
 	def name
-		return user.name
+		if (user.nil?)
+			return "No Associated User!"
+		else
+			return user.name
+		end
 	end
 	
 	def email

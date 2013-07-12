@@ -3,30 +3,19 @@ MgmtPrototype::Application.routes.draw do
   devise_for :users, :path_prefix => 'd'
   
   resources :users
-  
   resources :ranks
-
-  resources :profiles
-	
+  resources :profiles, :except => :new
   resources :events
-
-
-  resources :statuses
-
-
-  resources :skills
-
-
-  resources :equipment
-
-
+	resources :statuses
+	resources :skills
+	resources :equipment
   resources :employees
-
 
   get "home/index"
   
-  get "/profiles/new/:id", to: "profiles#new", as: "new_profile"
-  
+  #get "/profiles/new/:id", to: "profiles#new", as: "new_profile"
+  match 'profiles/new/:id' => 'profiles#new', as: 'new_profile', :id => /[0-9][0-9]/
+	
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,4 +1,7 @@
 class Rank < ActiveRecord::Base
+
+	DEFAULT_STRING = "Unknown"
+
   attr_accessible :name, :description
   
   validates_presence_of :name
@@ -6,4 +9,12 @@ class Rank < ActiveRecord::Base
   
   has_many :employees
 	has_many :profiles
+	
+	def self.default
+	  d_rank = Rank.where(:name=>DEFAULT_STRING).first
+		if d_rank.nil?
+			d_rank = Rank.create(:name=>DEFAULT_STRING)		
+		end
+		return d_rank
+	end
 end

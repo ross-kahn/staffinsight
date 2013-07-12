@@ -1,7 +1,7 @@
 class EquipmentController < ApplicationController
 
   before_filter :get_statuses, :only => [:new, :edit, :create, :update]
-  before_filter :get_employees, :only => [:new, :edit, :create, :update]
+  before_filter :get_profiles, :only => [:new, :edit, :create, :update]
   before_filter :equipment_handlers
   after_filter :build_handlers, :only => [:create, :update]
 
@@ -9,21 +9,21 @@ class EquipmentController < ApplicationController
     @statuses = Status.all
   end
   
-  def get_employees
-	@employees = Employee.all
+  def get_profiles
+		@profiles = Profile.all
   end
   
   def equipment_handlers
-	@eq_handlers = []
+		@eq_handlers = []
   end
   
   def build_handlers
-	@equipment.handlers = []
-	if params.has_key?(:handlers)
-		params[:handlers].each do |handler| 
-			@equipment.handlers << Employee.find(handler)
+		@equipment.handlers = []
+		if params.has_key?(:handlers)
+			params[:handlers].each do |handler| 
+				@equipment.handlers << Profile.find(handler)
+			end
 		end
-	end
   end
 
   # GET /equipment
@@ -63,9 +63,9 @@ class EquipmentController < ApplicationController
   def edit
     @equipment = Equipment.find(params[:id])
 	
-	@equipment.handlers.each do |handler|
-		@eq_handlers << handler.id
-	end
+		@equipment.handlers.each do |handler|
+			@eq_handlers << handler.id
+		end
   end
 
   # POST /equipment
@@ -73,7 +73,7 @@ class EquipmentController < ApplicationController
   def create
     @equipment = Equipment.new(params[:equipment])
 	
-	@equipment.status_id = params[:status]
+		@equipment.status_id = params[:status]
 
     respond_to do |format|
       if @equipment.save
@@ -91,7 +91,7 @@ class EquipmentController < ApplicationController
   def update
     @equipment = Equipment.find(params[:id])
 
-	@equipment.status_id = params[:status]
+		@equipment.status_id = params[:status]
 	
     respond_to do |format|
       if @equipment.update_attributes(params[:equipment])

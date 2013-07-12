@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 		
     if @user.save
-      redirect_to new_employee_path(@user), :notice => "Successfully created user."
+      redirect_to new_profile_path(@user), :notice => "Successfully created user."
     else
       render :action => 'new'
     end
