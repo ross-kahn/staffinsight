@@ -23,21 +23,25 @@
   <h3>Email: <%= @user.email %></h1><br />
   
   <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+	<%= f.label :title %><br />
+	<%= f.text_field :title, disabled: (can? :edit_title, @user) %>
   </div>
   
   <div class="field">
-	<%= f.label 'Rank' %>: (<%= link_to("New Status", new_rank_path, :target =>'_blank') %>)<br />
-
-	<% @ranks.each do |r|%>
-		<% if @profile.new_record? %>
-			<% checked = (r.id == @default_rank.id) %>
-		<% else %>
-			<% checked = (r.id == @profile.rank.id) %>
+	<% if cannot? :edit_rank, @profile %>
+		<input name="rank" type="hidden" value=<%= @default_rank.id %> />
+	<% else %>
+		<%= f.label 'Rank' %>: (<%= link_to("New Status", new_rank_path, :target =>'_blank') %>)<br />
+		<% @ranks.each do |r|%>
+			<% if @profile.new_record? %>
+				<% checked = (r.id == @default_rank.id) %>
+			<% else %>
+				<% checked = (r.id == @profile.rank.id) %>
+			<% end %>
+			<%= radio_button_tag 'rank', r.id, checked %>
+			<%= r.name %><br />
 		<% end %>
-		<%= radio_button_tag 'rank', r.id, checked %>
-		<%= r.name %><br />
+	
 	<% end %>
 
   </div>

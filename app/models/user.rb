@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   ROLES = %w[Read-Only Basic Admin Director]
+	DEFAULT_ROLE = %w[Read-Only]
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -22,4 +23,8 @@ class User < ActiveRecord::Base
     ROLES.include? role.to_s
   end
   
+	def self.default_role
+		return ROLES[0].to_s
+	end
+	
 end

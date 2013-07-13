@@ -1,10 +1,10 @@
 class ProfilesController < ApplicationController
 	
 	before_filter :get_user, :except=>[:index]
-	before_filter :get_ranks, :only=> [:new, :edit]
-	before_filter :get_equipment, :only => [:new, :edit]
-	before_filter :get_skills, :only=> [:new, :edit]
-	before_filter :default_rank, :only=> [:new, :edit]
+	before_filter :get_ranks, :only=> [:new, :edit, :create]
+	before_filter :get_equipment, :only => [:new, :edit, :create]
+	before_filter :get_skills, :only=> [:new, :edit, :create]
+	before_filter :default_rank, :only=> [:new, :edit, :create]
 	after_filter :build_profile, :only => [:create, :update]
 	
 	
@@ -47,6 +47,7 @@ class ProfilesController < ApplicationController
   # GET /profiles.json
   def index
     @profiles = Profile.all
+		authorize! :list, Profile
 
     respond_to do |format|
       format.html # index.html.erb
@@ -58,6 +59,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1.json
   def show
     @profile = Profile.find(params[:id])
+		authorize! :show, @profile
 
     respond_to do |format|
       format.html # show.html.erb
@@ -70,7 +72,12 @@ class ProfilesController < ApplicationController
   def new
     @profile = Profile.new
 		@user = User.find(params[:id]) #TODO: add graceful failure?
-		@profile.user = @user
+		@profile.id = params[:id]
+		authorize! :new, @profile
+		
+		
+		#@profile.user = @user
+		
 		
     respond_to do |format|
       format.html # new.html.erb
@@ -82,6 +89,7 @@ class ProfilesController < ApplicationController
   def edit
     @profile = Profile.find(params[:id])
 		@user = @profile.user
+		authorize! :update, @profile
 		
 		@profile.skills.each do |skill|
 			@prof_skills << skill.id
@@ -103,7 +111,9 @@ class ProfilesController < ApplicationController
     @profile = Profile.new(params[:profile])
 		@profile.rank_id = params[:rank]
 		@profile.user = User.find(params[:user])
+		@profile.id = @profile.user.id
 		@profile.user.update_attributes(:profile => @profile)
+		authorize! :create, @profile
 		
     respond_to do |format|
       if @profile.save
@@ -122,6 +132,7 @@ class ProfilesController < ApplicationController
     @profile = Profile.find(params[:id])
 		@profile.skills = [] # prepare for build_profile
 		@profile.rank_id = params[:rank]
+		authorize! :update, @profile
 
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
@@ -139,6 +150,7 @@ class ProfilesController < ApplicationController
   def destroy
     @profile = Profile.find(params[:id])
     @profile.destroy
+		authorize! :destroy, @profile
 
     respond_to do |format|
       format.html { redirect_to profiles_url }
