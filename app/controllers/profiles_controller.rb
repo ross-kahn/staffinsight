@@ -149,8 +149,8 @@ class ProfilesController < ApplicationController
   # DELETE /profiles/1.json
   def destroy
     @profile = Profile.find(params[:id])
-    @profile.destroy
 		authorize! :destroy, @profile
+    @profile.destroy
 
     respond_to do |format|
       format.html { redirect_to profiles_url }

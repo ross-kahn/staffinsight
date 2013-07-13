@@ -24,7 +24,7 @@
   
   <div class="field">
 	<%= f.label :title %><br />
-	<%= f.text_field :title, disabled: (can? :edit_title, @user) %>
+	<%= f.text_field :title, disabled: !(can? :edit_title, @profile) %>
   </div>
   
   <div class="field">

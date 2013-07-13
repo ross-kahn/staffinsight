@@ -26,6 +26,11 @@
 			<th><%= user.role %></th>
 			<th><%= user.created_at.to_s(:datetime).downcase %></th>
 			<th><%= user.updated_at.to_s(:datetime).downcase %></th>
+			<% if user.profile.nil? %>
+				<th><%= link_to "MISSING PROFILE", new_profile_path(user.id) %></th>
+			<% else %>
+				<th><%= link_to "Profile", user.profile %></th>
+			<% end %>
 			<th><%= link_to "Edit", edit_user_path(user) %></th>
 			<th><%= link_to "Delete", user, :method => :delete, :confirm => "Are you sure?" %></th>
 		</tr>

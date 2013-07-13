@@ -2,7 +2,9 @@ MgmtPrototype::Application.routes.draw do
 
   devise_for :users, :path_prefix => 'd'
   
-  resources :users
+	get 'profiles/new', to: "users#new"
+  
+	resources :users
   resources :ranks
   resources :profiles, :except => :new
   resources :events
@@ -14,6 +16,7 @@ MgmtPrototype::Application.routes.draw do
   
   #get "/profiles/new/:id", to: "profiles#new", as: "new_profile"
   match 'profiles/new/:id' => 'profiles#new', as: 'new_profile', :id => /[0-9][0-9]/
+
 	
   # The priority is based upon order of creation:
   # first created -> highest priority.

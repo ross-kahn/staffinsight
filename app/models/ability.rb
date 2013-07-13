@@ -13,6 +13,7 @@ class Ability
 			
 			can :manage, Profile
 			cannot :destroy, Profile
+			
 			can :edit_rank
 			can :edit_title
 			
@@ -32,7 +33,11 @@ class Ability
 			can [:read, :create, :update, :list], Profile
 			cannot :edit_other_profile, Profile
 			cannot :edit_rank
-			cannot :edit_title
+			
+			# Can only enter title on creation, cannot edit
+			can :edit_title, Profile do |profile|
+				profile.new_record?
+			end
 			
 			can [:read, :create, :update], Equipment
 			cannot :set_equipment_managers, Equipment
@@ -56,7 +61,9 @@ class Ability
 			can :show, Profile, :user_id => user.id
 			
 			# Allowed to enter their title only on creation.
-			can :edit_title, Profile, :profile_id => nil
+			can :edit_title, Profile do |profile|
+				profile.new_record?
+			end
 			
 			# A read-only user can never change their payment status
 			cannot :edit_rank, Profile
