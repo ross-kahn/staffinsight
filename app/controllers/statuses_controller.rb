@@ -3,6 +3,7 @@ class StatusesController < ApplicationController
   # GET /statuses.json
   def index
     @statuses = Status.all
+		authorize! :read, Status
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +15,7 @@ class StatusesController < ApplicationController
   # GET /statuses/1.json
   def show
     @status = Status.find(params[:id])
+		authorize! :read, Status
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,6 +27,7 @@ class StatusesController < ApplicationController
   # GET /statuses/new.json
   def new
     @status = Status.new
+		authorize! :create, Status
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,12 +38,14 @@ class StatusesController < ApplicationController
   # GET /statuses/1/edit
   def edit
     @status = Status.find(params[:id])
+		authorize! :update, Status
   end
 
   # POST /statuses
   # POST /statuses.json
   def create
     @status = Status.new(params[:status])
+		authorize! :create, Status
 
     respond_to do |format|
       if @status.save
@@ -57,6 +62,7 @@ class StatusesController < ApplicationController
   # PUT /statuses/1.json
   def update
     @status = Status.find(params[:id])
+		authorize! :update, Status
 
     respond_to do |format|
       if @status.update_attributes(params[:status])
@@ -73,6 +79,7 @@ class StatusesController < ApplicationController
   # DELETE /statuses/1.json
   def destroy
     @status = Status.find(params[:id])
+		authorize! :destroy, Status
     @status.destroy
 
     respond_to do |format|

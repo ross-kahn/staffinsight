@@ -29,7 +29,8 @@ class SkillsController < ApplicationController
   # GET /skills
   # GET /skills.json
   def index
-
+		authorize! :read, Skill
+		
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @skills }
@@ -40,6 +41,7 @@ class SkillsController < ApplicationController
   # GET /skills/1.json
   def show
     @skill = Skill.find(params[:id])
+		authorize! :read, Skill
 	
     respond_to do |format|
       format.html # show.html.erb
@@ -51,6 +53,7 @@ class SkillsController < ApplicationController
   # GET /skills/new.json
   def new
     @skill = Skill.new
+		authorize! :create, Skill
 	
     respond_to do |format|
       format.html # new.html.erb
@@ -61,6 +64,7 @@ class SkillsController < ApplicationController
   # GET /skills/1/edit
   def edit
     @skill = Skill.find(params[:id])
+		authorize! :update, Skill
 	
 		@skill.profiles.each do |prof|
 			@skilled << prof.id
@@ -71,6 +75,7 @@ class SkillsController < ApplicationController
   # POST /skills.json
   def create
     @skill = Skill.new(params[:skill])
+		authorize! :create, Skill
 	
     respond_to do |format|
       if @skill.save
@@ -87,7 +92,8 @@ class SkillsController < ApplicationController
   # PUT /skills/1.json
   def update
     @skill = Skill.find(params[:id])
-
+		authorize! :update, Skill
+		
     respond_to do |format|
       if @skill.update_attributes(params[:skill])
         format.html { redirect_to skills_path, notice: 'Skill was successfully updated.' }
@@ -103,6 +109,8 @@ class SkillsController < ApplicationController
   # DELETE /skills/1.json
   def destroy
     @skill = Skill.find(params[:id])
+		authorize! :destroy, Skill
+		
     @skill.destroy
 
     respond_to do |format|

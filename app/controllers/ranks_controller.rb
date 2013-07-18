@@ -14,6 +14,7 @@ class RanksController < ApplicationController
   # GET /ranks/1.json
   def show
     @rank = Rank.find(params[:id])
+		authorize! :read, Rank
 
     respond_to do |format|
       format.html # show.html.erb
@@ -25,6 +26,7 @@ class RanksController < ApplicationController
   # GET /ranks/new.json
   def new
     @rank = Rank.new
+		authorize! :create, Rank
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,12 +37,14 @@ class RanksController < ApplicationController
   # GET /ranks/1/edit
   def edit
     @rank = Rank.find(params[:id])
+		authorize! :update, Rank
   end
 
   # POST /ranks
   # POST /ranks.json
   def create
     @rank = Rank.new(params[:rank])
+		authorize! :create, Rank
 
     respond_to do |format|
       if @rank.save
@@ -57,6 +61,7 @@ class RanksController < ApplicationController
   # PUT /ranks/1.json
   def update
     @rank = Rank.find(params[:id])
+		authorize! :update, Rank
 
     respond_to do |format|
       if @rank.update_attributes(params[:rank])
@@ -73,6 +78,7 @@ class RanksController < ApplicationController
   # DELETE /ranks/1.json
   def destroy
     @rank = Rank.find(params[:id])
+		authorize! :destroy, Rank
     @rank.destroy
 
     respond_to do |format|

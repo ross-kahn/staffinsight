@@ -17,7 +17,7 @@
 	<td style="color:<%=equipment.status.color%>">
 		<b><%= equipment.status.name %></b>
 	</td>
-	<td><b><%= link_to(equipment.manager.name, equipment.manager) %></b></td>
+<td><b><%= link_to(equipment.manager.name, equipment.manager) %></b></td>
 	<td><b>
 		<% equipment.handlers.each do |handler| %>
 			|<%= link_to(handler.name, handler) %>|

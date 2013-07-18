@@ -26,51 +26,67 @@ class Ability
 			can :edit_own_user, User
 			can :edit_any_user, User
 			
+			can :manage, Rank
+			
 		elsif user.role == "Basic"
 			can [:create, :update, :read], Event
 			cannot :choose_event_staff, Event
 			
-			can [:read, :create, :update, :list], Profile
-			cannot :edit_other_profile, Profile
-			cannot :edit_rank
+			########## Profile #####################################################
+				can [:read, :create, :update, :list], Profile
+				cannot :edit_other_profile, Profile
+				cannot :edit_rank
+				
+				# Can only enter title on creation, cannot edit
+				can :edit_title, Profile do |profile|
+					profile.new_record?
+				end
 			
-			# Can only enter title on creation, cannot edit
-			can :edit_title, Profile do |profile|
-				profile.new_record?
-			end
+			########## Equipment ###################################################
+			# NOTE: Haven't implemented the in-form blocks yet
+				can [:read, :create, :update], Equipment
+				cannot :set_equipment_managers, Equipment
+				cannot :set_equipment_handlers, Equipment
 			
-			can [:read, :create, :update], Equipment
-			cannot :set_equipment_managers, Equipment
-			cannot :set_equipment_handlers, Equipment
-			
-			can [:read, :create], Skill
-			cannot :choose_staff, Skill
+      ########## Skill #######################################################
+				can [:read, :create], Skill
+				cannot :choose_staff, Skill
 			
 		elsif user.role == "Read-Only"
 			can :read, Event
 			
-			cannot :list, Profile	# Can't see staff list
+			########## Profile #####################################################
 			
-			# Can create a new profile only if the current user
-			# doesn't have a profile yet. This will allow the
-			# user to create a profile for themselves, and then
-			# subsequently not be allowed to create any other users
-			can :new, Profile, :id => user.id
-			can :create, Profile, :id => user.id
+				cannot :list, Profile	# Can't see staff list
+				
+				# Can create a new profile only if the current user
+				# doesn't have a profile yet. This will allow the
+				# user to create a profile for themselves, and then
+				# subsequently not be allowed to create any other users
+				can :new, Profile, :id => user.id
+				can :create, Profile, :id => user.id
+				
+				# Can see only their own Profile
+				can :show, Profile, :user_id => user.id
+				
+				# Allowed to enter their title only on creation.
+				can :edit_title, Profile do |profile|
+					profile.new_record?
+				end
 			
-			can :show, Profile, :user_id => user.id
+				# A read-only user can never change their payment status
+				cannot :edit_rank, Profile
 			
-			# Allowed to enter their title only on creation.
-			can :edit_title, Profile do |profile|
-				profile.new_record?
-			end
+			########## Equipment ###################################################
+
+				can :read, Equipment
+				cannot :new, Equipment
+				cannot :delete, Equipment
+				cannot :edit, Equipment
 			
-			# A read-only user can never change their payment status
-			cannot :edit_rank, Profile
-			
-			can :read, Equipment
-			
-			can :read, Skill
+			########## Skill #######################################################
+				can :read, Skill
+
 		end
     
 		

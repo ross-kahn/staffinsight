@@ -52,7 +52,8 @@ class EquipmentController < ApplicationController
   # GET /equipment/new.json
   def new
     @equipment = Equipment.new
-
+		authorize! :new, Equipment
+		
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @equipment }
@@ -62,6 +63,7 @@ class EquipmentController < ApplicationController
   # GET /equipment/1/edit
   def edit
     @equipment = Equipment.find(params[:id])
+		authorize! :edit, Equipment
 	
 		@equipment.handlers.each do |handler|
 			@eq_handlers << handler.id
@@ -72,6 +74,7 @@ class EquipmentController < ApplicationController
   # POST /equipment.json
   def create
     @equipment = Equipment.new(params[:equipment])
+		authorize! :new, Equipment
 	
 		@equipment.status_id = params[:status]
 
@@ -90,7 +93,8 @@ class EquipmentController < ApplicationController
   # PUT /equipment/1.json
   def update
     @equipment = Equipment.find(params[:id])
-
+		authorize! :edit, Equipment
+		
 		@equipment.status_id = params[:status]
 	
     respond_to do |format|
@@ -108,6 +112,8 @@ class EquipmentController < ApplicationController
   # DELETE /equipment/1.json
   def destroy
     @equipment = Equipment.find(params[:id])
+		authorize! :delete, Equipment
+		
     @equipment.destroy
 
     respond_to do |format|
