@@ -30,7 +30,7 @@ class CleanMigrations < ActiveRecord::Migration
 		add_index(:events_profiles, [:event_id, :profile_id])
 		
 		create_table :events_skills, :id=>false do |t|
-			t.refereces :event, :null =>false
+			t.references :event, :null =>false
 			t.references :skill, :null=>false
 		end
 		
