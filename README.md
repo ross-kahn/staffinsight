@@ -1,4 +1,4 @@
-![StaffInSight Logo] (http://i.imgur.com/fTwsFTq.png)
+![StaffInSight Logo] (http://i.imgur.com/RUMQAmM.png)
 ============
 
 By [The Insight Lab](http://insight.cis.rit.edu) at the Rochester Institute of Technology
