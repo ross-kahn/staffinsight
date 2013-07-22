@@ -87,7 +87,6 @@ class Ability
 			########## Skill #######################################################
 				can :read, Skill
 				
-			cannot :index, User
 			can :read, User, :id => user.id			
 
 		end
