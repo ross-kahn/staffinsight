@@ -6,6 +6,7 @@ MgmtPrototype::Application.routes.draw do
   
 	resources :users
   resources :ranks
+	match 'profiles/new/:id' => 'profiles#new', as: 'new_profile', :id => /[0-9]+/
   resources :profiles, :except => :new
   resources :events
 	resources :statuses
@@ -15,8 +16,6 @@ MgmtPrototype::Application.routes.draw do
   get "home/index"
   
   #get "/profiles/new/:id", to: "profiles#new", as: "new_profile"
-  match 'profiles/new/:id' => 'profiles#new', as: 'new_profile', :id => /[0-9][0-9]/
-
 	
   # The priority is based upon order of creation:
   # first created -> highest priority.
