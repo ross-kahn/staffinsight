@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130712171559) do
+ActiveRecord::Schema.define(:version => 20130719170707) do
 
   create_table "equipment", :force => true do |t|
-    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "name"
     t.integer  "status_id"
     t.integer  "profile_id"
   end
@@ -33,12 +33,14 @@ ActiveRecord::Schema.define(:version => 20130712171559) do
     t.integer "profile_id",   :null => false
   end
 
+  add_index "equipment_profiles", ["equipment_id", "profile_id"], :name => "index_equipment_profiles_on_equipment_id_and_profile_id"
+
   create_table "events", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "name"
     t.string   "location"
     t.datetime "time"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "events_profiles", :id => false, :force => true do |t|
@@ -49,24 +51,16 @@ ActiveRecord::Schema.define(:version => 20130712171559) do
   add_index "events_profiles", ["event_id", "profile_id"], :name => "index_events_profiles_on_event_id_and_profile_id"
 
   create_table "events_skills", :id => false, :force => true do |t|
-    t.integer "skill_id", :null => false
     t.integer "event_id", :null => false
-  end
-
-  add_index "events_skills", ["event_id", "skill_id"], :name => "index_events_skills_on_event_id_and_skill_id"
-
-  create_table "permissions", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer "skill_id", :null => false
   end
 
   create_table "profiles", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
     t.string   "title"
     t.integer  "rank_id"
     t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "profiles_skills", :id => false, :force => true do |t|
@@ -78,13 +72,6 @@ ActiveRecord::Schema.define(:version => 20130712171559) do
 
   create_table "ranks", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.text     "description"
-  end
-
-  create_table "roles", :force => true do |t|
-    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -93,7 +80,6 @@ ActiveRecord::Schema.define(:version => 20130712171559) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-    t.integer  "parent_id"
   end
 
   create_table "statuses", :force => true do |t|
@@ -113,11 +99,11 @@ ActiveRecord::Schema.define(:version => 20130712171559) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-    t.string   "name"
+    t.string   "name",                   :default => "", :null => false
     t.string   "role"
     t.integer  "profile_id"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

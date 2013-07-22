@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 				# If the user does not yet have a profile, they need to create one before proceeding
 				# NOTE: In addition to linking the two objects, change the cancan level. This way,
 				# the user can't get to the 'new profile' page and then navigate away
-				new_profile_path(resource)
+				new_profile_path(resource.id)
 			else
 
 				# If the user has a profile associated with it, then proceed normally to the home page
@@ -25,6 +25,6 @@ class ApplicationController < ActionController::Base
 		end	
 	
 	  def after_sign_up_path_for(resource)
-			new_profile_path(resource)
+			new_profile_path(resource.id)
 	  end
 end
