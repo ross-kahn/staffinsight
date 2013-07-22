@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def index
     @users = User.all
-		authorize! :read, User
+		authorize! :index, User
   end
 
   def show

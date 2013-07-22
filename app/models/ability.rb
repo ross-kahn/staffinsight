@@ -21,7 +21,7 @@ class Ability
 			
 			can :manage, Skill
 			
-			can [:create, :read], User
+			can [:create, :read, :index], User
 			can :see_admin_options, User
 			can :edit_own_user, User
 			can :edit_any_user, User
@@ -87,6 +87,7 @@ class Ability
 			########## Skill #######################################################
 				can :read, Skill
 				
+			cannot :index, User
 			can :read, User, :id => user.id			
 
 		end
