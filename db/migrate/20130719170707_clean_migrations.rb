@@ -15,6 +15,13 @@ class CleanMigrations < ActiveRecord::Migration
 		
 		add_index(:equipment_events, [:equipment_id, :event_id])
 		
+		create_table :equipment_profiles, :id => false do |t|
+			t.references :equipment, :null => false
+			t.references :profile, :null => false
+		end
+		
+		add_index(:equipment_profiles, [:equipment_id, :profile_id])
+		
 		create_table :events do |t|
 			t.timestamps
 			t.string :name
