@@ -1,0 +1,41 @@
+<h2>Recruit Potential Staff<h2>
+<p>
+	<% if @event.potentials.size < 1 %>
+		<em>NO POTENTIAL STAFF WERE FOUND!</em>
+	<% else %>
+	<table cellspacing=10>
+		<tr>
+			<th>Name</th>
+			<th>Position</th>
+			<th>Relevant Skills</th>
+			<th>Relevent Equipment Handling</th>
+			<th>Recruit for Event?</th>
+		</tr>
+		<% @event.potentials.each do |pot| %>
+			<tr>
+				<td><%= link_to(pot.name, pot, :target=> '_blank' ) %></td>
+				<td><%= pot.title %></td>
+				<td>
+					<% (@event.skills & pot.skills).each do |skill| %>
+						|<%= link_to(skill.name, skill, :target => '_blank') %>|
+					<% end %>
+					<% if (@event.skills & pot.skills).size < 1 %>
+						<b>N/A</b>
+					<% end %>
+				</td>
+				<td>
+					<% (@event.equipment & pot.equipment).each do |eq| %>
+						|<%= link_to(eq.name, eq, :target => '_blank') %>|
+					<% end %>
+					<% if (@event.equipment & pot.equipment).size < 1 %>
+						<b>N/A</b>
+					<% end %>
+				</td>
+				<td>
+					<%= check_box_tag 'recruited[]', pot.id, @recruited.include?(pot.id)%>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+	<% end %>
+<p>

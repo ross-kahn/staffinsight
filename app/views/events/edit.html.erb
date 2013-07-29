@@ -1,4 +1,8 @@
-<h1>Editing event</h1>
+<h1>Event: <%= @event.name %></h1>
+<p>
+	<em>Time: <%= @event.time %></em></br>
+	<em>Location: <%=@event.location %></em>
+</p>
 
 <%= render 'form' %>
 

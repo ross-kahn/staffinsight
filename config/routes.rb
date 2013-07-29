@@ -8,6 +8,9 @@ MgmtPrototype::Application.routes.draw do
   resources :ranks
 	match 'profiles/new/:id' => 'profiles#new', as: 'new_profile', :id => /[0-9]+/
   resources :profiles, :except => :new
+	
+	match '/events/recruit/:id' => 'events#recruit'
+	
   resources :events
 	resources :statuses
 	resources :skills

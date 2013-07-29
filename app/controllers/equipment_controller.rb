@@ -80,7 +80,7 @@ class EquipmentController < ApplicationController
 
     respond_to do |format|
       if @equipment.save
-        format.html { redirect_to @equipment, notice: 'Equipment was successfully created.' }
+        format.html { redirect_to all_equipment_path, notice: 'Equipment was successfully created.' }
         format.json { render json: @equipment, status: :created, location: @equipment }		
       else
         format.html { render action: "new" }
