@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:long_with_meridian] = '(%A) %B %d, %Y - %I:%M %p'

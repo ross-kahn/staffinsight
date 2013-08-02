@@ -12,7 +12,12 @@
   <% end %>
 
   <%= render "#{@event.current_step}_step", :f => f%>
-  <p><%= f.submit "Save", :name => "next_button" %></p>
-  <p><%= f.submit "Back", :name => "back_button" unless @event.first_step? %></p>
+  
+  <p>
+	  <% submit_message = "Next -->"%>
+	  <% submit_message = "Save" unless @event.first_step? %>
+	  <%= f.submit "<-- Back", :name => "back_button" unless @event.first_step? %>
+	  <%= f.submit submit_message, :name => "next_button" %>
+  </p>
 
 <% end %>

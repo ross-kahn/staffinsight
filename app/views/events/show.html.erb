@@ -1,10 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-
-<p>
-  <b>Name:</b>
-  <%= @event.name %>
-</p>
+<h2><b>Event</b></h2>
+<h1>
+  "<%= @event.name %>"
+</h1>
 
 <p>
   <b>Location:</b>
@@ -13,11 +12,13 @@
 
 <p>
   <b>Time:</b>
-  <%= @event.time %>
+  <%= @event.time.to_formatted_s(:long_with_meridian) %>
 </p>
 
+</br>
+
 <p>
-  <b>Required Skills:</b>
+  <h2><b>Required Skills:</b></h2>
   <% @event.skills.each do |skill| %>
 	<span style="color:<%=skill.status_color(@event)%>">|<%= link_to(skill.name, skill, :target => '_blank') %>|</span>
   <% end %>
@@ -26,8 +27,10 @@
   <% end %>
 </p>
 
-<p>
-  <b>Required Equipment:</b>
+</br>
+
+<div><p>
+  <h2><b>Required Equipment:</b></h2>
   <% if @event.equipment.size < 1 %>
 	<em>NO REQUIRED EQUIPMENT</em>
   <% else %>
@@ -46,10 +49,13 @@
 		 <%end%>
 	  </table>
   <% end %>
-</p>
+</p></div>
 
-<p>
-	<b>Potential Staff:</b>
+</br>
+
+<div><p>
+
+	<h2><b>Potential Staff:</b></h2>
 	<% if @event.potentials.size < 1 %>
 		<em>NO POTENTIAL STAFF WERE FOUND!</em>
 	<% else %>
@@ -59,6 +65,7 @@
 			<th>Position</th>
 			<th>Relevant Skills</th>
 			<th>Relevent Equipment Handling</th>
+			<th>Recruited?</th>
 		</tr>
 		<% @event.potentials.each do |pot| %>
 			<tr>
@@ -80,11 +87,15 @@
 						<b>N/A</b>
 					<% end %>
 				</td>
+				<td>
+					<%= check_box_tag 'recruited[]', pot.id, @recruited.include?(pot.id), disabled: true%>
+				</td>
 			</tr>
 		<% end %>
 	</table>
 	<% end %>
-<p>
+	
+</p></div>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<%= link_to 'All Events', events_path %>

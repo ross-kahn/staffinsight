@@ -1,7 +1,9 @@
 class Event < ActiveRecord::Base
   attr_accessible :location, :name, :time
 	attr_writer :current_step
-  
+  attr_writer :accepted
+	attr_writer :denied
+	
   validates_presence_of :location, :name, :time
   #validates_presence_of :location, :if => lambda {|e| e.current_step == 'information'}
 	
@@ -28,6 +30,30 @@ class Event < ActiveRecord::Base
 	
 		return (skill_pot | eq_pot)
   end
+	
+	def accepted
+		@accepted || []
+	end
+	
+	# Add the profile to the list of accepted.
+	# If the profile's id already exists, don't add it and return false
+	def accept(profile)
+	  if(accepted.include? profile)
+			return false
+		else
+			self.denied.delete(profile) # Will delete id from denied if it exists
+			self.accepted << profile 		# Add id to accepted
+			return true
+		end
+	end
+	
+	def denied
+		@denied || []
+	end
+	
+	def deny(profile)
+		self.denied << profile
+	end
 	
 	def current_step
 		@current_step || steps.first

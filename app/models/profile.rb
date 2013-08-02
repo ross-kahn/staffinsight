@@ -1,5 +1,7 @@
 class Profile < ActiveRecord::Base
   attr_accessible :title, :rank, :user
+	attr_writer :accepted_events
+	attr_writer :denied_events
 	
 	validates_presence_of :rank
 	
@@ -26,5 +28,33 @@ class Profile < ActiveRecord::Base
 	
 	def permission
 		return user.role
+	end
+	
+	def accepted_events
+		@accepted_events || []
+	end
+	
+	def denied_events
+		@denied_events || []
+	end
+	
+	def accept(event)
+		if(event.accept(self))
+			denied_events.delete(event)
+			accepted_events << event
+			return true
+		else
+			return false
+		end
+	end
+	
+	def deny(event)
+		if(event.deny(self))
+			accepted_events.delete(event)
+			denied_events << event
+			return true
+		else
+			return false
+		end
 	end
 end
