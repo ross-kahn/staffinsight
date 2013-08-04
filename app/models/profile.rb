@@ -10,6 +10,14 @@ class Profile < ActiveRecord::Base
   has_and_belongs_to_many :equipment	# Handler for
   has_and_belongs_to_many :subscriptions, :class_name => "Event"
 	
+	has_and_belongs_to_many :accepted,
+			:class_name => "Event",
+			:join_table => "accepted_events"
+			
+	has_and_belongs_to_many :denied,
+			:class_name => "Event",
+			:join_table => "denied_events"
+	
 	belongs_to :rank
   belongs_to :user, :readonly=>true,
 						inverse_of: :profile, dependent: :destroy	# The authentication model associated with each employee model
@@ -30,31 +38,4 @@ class Profile < ActiveRecord::Base
 		return user.role
 	end
 	
-	def accepted_events
-		@accepted_events || []
-	end
-	
-	def denied_events
-		@denied_events || []
-	end
-	
-	def accept(event)
-		if(event.accept(self))
-			denied_events.delete(event)
-			accepted_events << event
-			return true
-		else
-			return false
-		end
-	end
-	
-	def deny(event)
-		if(event.deny(self))
-			accepted_events.delete(event)
-			denied_events << event
-			return true
-		else
-			return false
-		end
-	end
 end

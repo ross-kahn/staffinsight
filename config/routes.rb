@@ -10,6 +10,8 @@ MgmtPrototype::Application.routes.draw do
   resources :profiles, :except => :new
 	
 	match '/events/recruit/:id' => 'events#recruit'
+	match '/events/confirm/:id' => 'events#confirm', :as => 'confirm_event'
+	match '/events/confirm/:id/:decision' => 'events#decide', :as => 'event_decision'
 	
   resources :events
 	resources :statuses

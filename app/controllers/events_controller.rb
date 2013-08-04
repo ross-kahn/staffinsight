@@ -54,7 +54,38 @@ class EventsController < ApplicationController
 			end
 		end
   end
-
+	
+	def decide
+		@event = Event.find(params[:id])
+		@decision = params[:decision]
+		@profile = current_user.profile
+		
+		if(@decision == 'accept')
+			@event.accepted << @profile unless @event.accepted.include? (@profile)
+			@event.denied.delete(@profile)
+			flash[:alert] = "You have chosen to attend '" + @event.name + "'"
+		elsif(@decision == 'deny')
+			@event.denied << @profile unless @event.denied.include? (@profile)
+			@event.accepted.delete(@profile)
+			flash[:alert] = "You have submitted that you are NOT able to attend '" + @event.name + "'"
+		
+		else
+			flash[:notice] = "Parameters invalid for decision"
+		end
+		
+		redirect_to @event
+	end
+	
+	def confirm
+		@event = Event.find(params[:id])
+		@profile = current_user.profile
+		
+		respond_to do |format|
+			format.html
+			format.json { render json: @event }
+		end
+	end
+	
   # GET /events
   # GET /events.json
   def index

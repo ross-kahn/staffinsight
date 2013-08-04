@@ -1,0 +1,60 @@
+<h2><b>Event</b></h2>
+<h1>
+  "<%= @event.name %>"
+</h1>
+
+<p>
+  <b>Location:</b>
+  <%= @event.location %>
+</p>
+
+<p>
+  <b>Time:</b>
+  <%= @event.time.to_formatted_s(:long_with_meridian) %>
+</p>
+
+</br>
+
+<p>
+  <h2><b>Skills You May Be Needed For:</b></h2>
+  <% @event.skills.each do |skill| %>
+	<% if @profile.skills.include?(skill) %>
+		|<b><%= skill.name %></b>| 
+	<% end %>
+  <% end %>
+  <% if @event.skills.size < 1 %>
+	<em> NO REQUIRED SKILLS </em>
+  <% end %>
+</p>
+
+</br>
+
+<div><p>
+  <h2><b>Equipment You May Have To Handle:</b></h2>
+  <% if @event.equipment.size < 1 %>
+	<em>NO REQUIRED EQUIPMENT</em>
+  <% else %>
+	  <table>
+		<tr>
+			<th>Name</th>
+			<th>Status</th>
+			<th>Manager</th>
+		</tr>
+		 <% @event.equipment.each do |eq| %>
+			<% if @profile.equipment.include?(eq) %>
+				<tr>
+					<td><%= link_to(eq.name, eq, :target => '_blank') %></td>
+					<td style="color:<%=eq.status.color%>"><b><%= eq.status.name %></b></td>
+					<td><%= link_to(eq.manager.name, eq.manager, :target => '_blank') %></td>
+				</tr>
+			<% end %>
+		 <%end%>
+	  </table>
+  <% end %>
+</p></div>
+
+<%= link_to "Confirm", event_decision_path(@event.id, 'accept') %>
+<%= link_to "Deny", event_decision_path(@event.id, 'deny') %>
+
+
+
