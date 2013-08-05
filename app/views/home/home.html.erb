@@ -9,11 +9,31 @@
     </div>
     
     <div id="content">
-        <%= link_to image_tag('events_ico.png'), events_path %>
+        <div class="nav_item">
+            <%= link_to image_tag('events_ico.png'), events_path %>
+            <div><h3>Events</h3></div>
+        </div>
+        <div class="nav_item">
+            <%= link_to image_tag('skills_ico.png'), skills_path %>
+            <div><h3>Skills</h3></div>
+        </div>
+        <div class="nav_item">
+            <%= link_to image_tag('staff_ico.png'), profiles_path %>
+            <div><h3>Staff</h3></div>
+        </div>
+        <div class="nav_item">
+            <%= link_to image_tag('equipment_ico.png'), all_equipment_path %>
+            <div><h3>Equipment</h3></div>
+        </div>
+        <div class="nav_item">
+            <%= link_to image_tag('admin_ico.png'), users_path %>
+            <div><h3>Administration</h3></div>
+        </div>
+        <!-- <%= link_to image_tag('events_ico.png'), events_path %>
         <%= link_to image_tag('skills_ico.png'), skills_path %>
         <%= link_to image_tag('staff_ico.png'), profiles_path %>
         <%= link_to image_tag('equipment_ico.png'), all_equipment_path %>
-        <%= link_to image_tag('admin_ico.png'), users_path %> 
+        <%= link_to image_tag('admin_ico.png'), users_path %> !--> 
     </div>
     
     <div id="footer"></div>

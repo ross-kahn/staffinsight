@@ -12,8 +12,25 @@
  *= require_tree .
  */
 
-#content > a > img{
-	padding: 3%;
+#content div{
+	
+}
+
+#content .nav_item{
+	padding: 2%;
+	position: relative;
+	float: left;
+	text-align: center;
+}
+
+#content .nav_item img{
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+#content .nav_item div{
+	margin-top: 20px;
 }
 
 #quick_nav > a > img{
@@ -47,11 +64,6 @@ th{
 
 table{
 	border:3px solid;
-}
-
-a > img{
-	float: left;
-	border: none;
 }
 
 .broken{

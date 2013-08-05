@@ -8,7 +8,6 @@
 			<th>Role</th>
 			<th>Login Count</th>
 			<th>Last Sign In</th>
-			<th>Role</th>
 			<th>Created At</th>
 			<th>Last Edited</th>
 			<th></th>
@@ -23,7 +22,6 @@
 			<th><%= user.role %></th>
 			<th><%= user.sign_in_count %></th>
 			<th><%if user.last_sign_in_at.blank? %>Never logged in<% else %><%= time_ago_in_words(user.last_sign_in_at.to_datetime)+' ago' %><% end %></th>
-			<th><%= user.role %></th>
 			<th><%= user.created_at.to_s(:datetime).downcase %></th>
 			<th><%= user.updated_at.to_s(:datetime).downcase %></th>
 			<% if user.profile.nil? %>
