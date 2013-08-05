@@ -8,7 +8,7 @@ class Profile < ActiveRecord::Base
 	has_and_belongs_to_many :skills
 	has_many :manages, :class_name => "Equipment"	# Manager for
   has_and_belongs_to_many :equipment	# Handler for
-  has_and_belongs_to_many :subscriptions, :class_name => "Event"
+  has_and_belongs_to_many :recruited, :class_name => "Event"
 	
 	has_and_belongs_to_many :accepted,
 			:class_name => "Event",

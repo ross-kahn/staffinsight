@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 				# the user can't get to the 'new profile' page and then navigate away
 				new_profile_path(resource.id)
 			else
-
+		
 				# If the user has a profile associated with it, then proceed normally to the home page
 				root_path
 			end

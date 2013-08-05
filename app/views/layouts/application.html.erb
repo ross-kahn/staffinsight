@@ -5,17 +5,26 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+  <script type="text/javascript" src="notifier.js"></script>
 </head>
 <body>
 <% if user_signed_in? %>
-  <%= link_to image_tag('staffinsight_nav.png'), root_path %></br>
-  <p>Hello <%= current_user.name %>
-  <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %>
-  <% if !current_user.profile.nil? %>
-	| <%= link_to 'Home', root_path %> |
-	  <%= link_to 'Profiles', profiles_path %> |
-	  <%= link_to 'Users', users_path %></p>
-  <% end %>
+  <span id="home_img"><%= link_to image_tag('staffinsight_nav.png'), root_path %></span>
+  
+  <div id="main_nav">
+    <span id="sign_out">Hello <b><%= current_user.name %></b>
+    <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></span>
+    
+    <span id="quick_nav">
+    <% if !current_user.profile.nil? %>
+	  <%= link_to image_tag('events_ico_small.png'), events_path %>
+	  <%= link_to image_tag('skills_ico_small.png'), skills_path %>
+	  <%= link_to image_tag('staff_ico_small.png'), profiles_path %>
+	  <%= link_to image_tag('equipment_ico_small.png'), all_equipment_path %>
+	  <%= link_to image_tag('admin_ico_small.png'), users_path %>
+    <% end %></span></br>
+  </div>
 <% end %>
 
 <p class="notice">

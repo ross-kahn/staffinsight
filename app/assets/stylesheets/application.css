@@ -16,6 +16,24 @@
 	padding: 3%;
 }
 
+#quick_nav > a > img{
+	padding-right: 2px;
+	padding-left: 20px;
+	float: left;
+}
+
+#main_nav{
+	padding-bottom: 25px;
+}
+
+#home_img{
+	float: left;
+}
+
+#sign_out{
+	float: right;
+}
+
 td{
 	text-align: center;
 	padding-right: 20px;
