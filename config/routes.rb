@@ -18,7 +18,7 @@ MgmtPrototype::Application.routes.draw do
 	resources :skills
 	resources :equipment
 
-  get "home/index"
+  get "home/home"
   
   #get "/profiles/new/:id", to: "profiles#new", as: "new_profile"
 	
@@ -73,7 +73,7 @@ MgmtPrototype::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'home#index'
+  root :to => 'home#home'
   
   # See how all your routes lay out with "rake routes"
 

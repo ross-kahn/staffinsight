@@ -11,6 +11,11 @@
  *= require_self
  *= require_tree .
  */
+
+#content > a > img{
+	padding: 3%;
+}
+
 td{
 	text-align: center;
 	padding-right: 20px;
@@ -24,6 +29,11 @@ th{
 
 table{
 	border:3px solid;
+}
+
+a > img{
+	float: left;
+	border: none;
 }
 
 .broken{

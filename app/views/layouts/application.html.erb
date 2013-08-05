@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MgmtPrototype</title>
+  <title>StaffInSight: Staff Management System</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <% if user_signed_in? %>
+  <%= link_to image_tag('staffinsight_nav.png'), root_path %></br>
   <p>Hello <%= current_user.name %>
   <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %>
   <% if !current_user.profile.nil? %>
