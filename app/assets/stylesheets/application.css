@@ -12,10 +12,6 @@
  *= require_tree .
  */
 
-#content div{
-	
-}
-
 #content .nav_item{
 	padding: 2%;
 	position: relative;
