@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(:version => 20130802194218) do
     t.integer "profile_id",   :null => false
   end
 
+  add_index "equipment_profiles", ["equipment_id", "profile_id"], :name => "index_equipment_profiles_on_equipment_id_and_profile_id"
+
   create_table "events", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -63,12 +65,6 @@ ActiveRecord::Schema.define(:version => 20130802194218) do
     t.integer "skill_id", :null => false
   end
 
-  create_table "permissions", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "profiles", :force => true do |t|
     t.string   "title"
     t.integer  "rank_id"
@@ -85,12 +81,6 @@ ActiveRecord::Schema.define(:version => 20130802194218) do
   add_index "profiles_skills", ["profile_id", "skill_id"], :name => "index_profiles_skills_on_profile_id_and_skill_id"
 
   create_table "ranks", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "roles", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
